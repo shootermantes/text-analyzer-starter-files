@@ -9,7 +9,7 @@ function numLetters(text){  	//counts the number of letters in the total text bo
 }
 
 function justWords(text){ 		//returns the list of words with no punctuation and special characters
-	return text.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/, '');
+	return text.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/, ' ').split(' ');
 }
 
 function wordCount(text){ 		//counts how many words are within the submitted text 
@@ -43,8 +43,9 @@ function aveSent(text){
 
 
 
-var x = document.getElementById('user-text').value;
-function handleClicks(){
+
+function handleClicks(){  		//event listener
+	var x = document.getElementById('user-text').value;
 	$('submit').click(function(event){
 
 	})
