@@ -1,20 +1,20 @@
 // your code here!
+var list = "";
+
 function numLetters(text){  	//counts the number of letters in the total text box
 	var numLetters = 0;
-	var letters = text.join().split('');
+	var letters = justWords(text).replace(/\s/g, "");
 	for (var i = 0; i < letters.length; i++){
 		numLetters++; 
 	}
-	return numLetters
+	console.log(letters);
+	return numLetters;
 }
 
-function justWords(text){ 		//returns the list of words with no punctuation and special characters
-	return text.replace(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/, ' ').split(' ');
-}
 
 function wordCount(text){ 		//counts how many words are within the submitted text 
 	var count = 0;
-	for (var x in text){
+	for (var i = 0; i< text.length; i++){
 		count++;
 	}
 	return count;
@@ -22,7 +22,7 @@ function wordCount(text){ 		//counts how many words are within the submitted tex
 }
 
 
-function aveWord(text){			//takes 'text' and calculates the average work length
+function aveWord(text){			//takes 'text' and calculates the average word length
 	var numWords = wordCount(text);
 	return numLetters(text)/numWords;
 }
@@ -39,19 +39,21 @@ function aveSent(text){
 }
 
 
-
+function justWords(text){ 		//returns a string of words with spaces between and with no punctuation and special characters
+	return text.replace(/[(),^\n]/g, ' ');
+}		//  'text' is a string
 
 
 
 
 function handleClicks(){  		//event listener
-	var x = document.getElementById('user-text').value;
-	$('submit').click(function(event){
-
+	
+	$('.js-text-form').submit(function(event) {
+    	event.preventDefault();
+    	var userText = $(this).find('#user-text').val();
+    	list += userText;
 	})
-
 }
-
 
 
 
