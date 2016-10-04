@@ -1,5 +1,4 @@
 // your code here!
-var list = "";
 
 function numLetters(text){  	//counts the number of letters in the total text box
 	var numLetters = 0;
@@ -7,20 +6,34 @@ function numLetters(text){  	//counts the number of letters in the total text bo
 	for (var i = 0; i < letters.length; i++){
 		numLetters++; 
 	}
-	console.log(letters);
 	return numLetters;
 }
 
 
+
 function wordCount(text){ 		//counts how many words are within the submitted text 
+	var words = justWords(text).replace(/\s/g, ',').split(',');
 	var count = 0;
-	for (var i = 0; i< text.length; i++){
+	for (var i = 0; i< words.length; i++){
 		count++;
 	}
 	return count;
-
 }
 
+function uniWords(text){ // counts how many unique words there are
+	var words = justWords(text).toLowerCase().replace(/\s/g, ',').split(',').sort();
+	var count = 0;
+	for (var i = 0; i < words.length; i++){
+		if (words[i]===words[i+1]){
+			if(words[i+1]===words[i+2]){
+				continue;
+			} else {
+				count++;
+			}
+		}
+	}
+	return count;
+}
 
 function aveWord(text){			//takes 'text' and calculates the average word length
 	var numWords = wordCount(text);
@@ -43,6 +56,9 @@ function justWords(text){ 		//returns a string of words with spaces between and 
 	return text.replace(/[(),^\n]/g, ' ');
 }		//  'text' is a string
 
+function renderHtml(value, selector){
+	$(selector).text(value);
+}
 
 
 
@@ -51,8 +67,14 @@ function handleClicks(){  		//event listener
 	$('.js-text-form').submit(function(event) {
     	event.preventDefault();
     	var userText = $(this).find('#user-text').val();
-    	list += userText;
+    	//console.log(numLetters(userText))
+    	renderHtml(wordCount(userText), 'dl dd:nth-child(2)');
+    	renderHtml(aveWord(userText), 'dl dd:nth-child(6)');
+    	renderHtml(aveSent(userText), 'dl dd:nth-child(8)');
+    	renderHtml(uniWords(userText), 'dl dd:nth-child(4)')
+    	$('.text-report').removeClass('hidden');
 	})
+
 }
 
 
